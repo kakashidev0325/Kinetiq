@@ -1,0 +1,28 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:security@kinetiq.xyz
+Contact: #
+Expires: 2027-07-01T04:00:00.000Z
+Encryption: https://kinetiq.xyz/.well-known/pubkey.asc
+Preferred-Languages: en
+Canonical: https://kinetiq.xyz/.well-known/security.txt
+Policy: https://kinetiq.xyz/.well-known/policy.txt
+Hiring: mailto:careers@kinetiq.xyz
+-----BEGIN PGP SIGNATURE-----
+
+iQJJBAEBCgAzFiEEMZabSq1unPkKB1T/iFnU23M+iyQFAmqljkUVHHNlY3VyaXR5
+QGtpbmV0aXEueHl6AAoJEIhZ1NtzPoskfs4P/RCO3b4n++Rkz2NwCwuHKWZA5NbU
+HcLmNpPRYqh4ZWsfw8bGnbFskI3HnScLMiOfN/1l+BelybWjwQFO4cIIi0FEuCue
+7bEQ+4IXGhhx+tl3pjw2AIUmeh1yiQIz3k4StxOWUNKofNaSeXdnheVgmk9vGniL
+Gy8+Uu5WF7Fc4dOImT6oEXzTmO+MVg6o2bjrvTLbCR6VM/Z7AFjpqFgS2uXRVjmE
+LWGOpvdhZ6HzgzfH6lWV519UM7pFMSmdGwEQ/Os3+GrqsH2PVvarKZa9ZriWCwy8
+m3fk72xcqCjU3EMAN+OUBGI7iFM48E3Pp6hHBF8psZoG0zcFsU0FaBp+qNRZcBV4
+SsF7PZ8ENw/9wHprT+BTO+yyjDJYYnBDc4teESPfmC2+VAQi+35rSV2gUsPChPo2
+mEQG/go9Nyflp0P5ex4kfdlX5qVOdUni3inHfd6OIHsXzFjTT6r+wVAB7AT080tL
+qJQ9VXR2uoKXzzbzwcb7fKbDY7VwEtrjBuvGkNXYAV4RdfcuwjqKh4vSsDqxg70N
+GUCP6V12yweK/zKhbBmuZGAMQXcHjeb9jk/e/TqOYWMp/Bq1aqih3zDSd8jurwrn
+UWJLCAmqK+0e1sAthRrP3MHBt8/1swJGBp9OdfKcOVfYeUiiKTMF1cnDFki9w23m
+XAe1aFV49Kne2s66
+=GUC4
+-----END PGP SIGNATURE-----
