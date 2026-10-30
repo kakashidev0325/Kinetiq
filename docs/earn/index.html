@@ -32,4 +32,113 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
   fix();
   new MutationObserver(fix).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
 })();
+</script>
+<script id="kntq-settings-patch">
+(function(){
+  if(window.__kntqSettingsPatch) return;
+  window.__kntqSettingsPatch=true;
+
+  var KEY='theme';
+  var panel=null;
+
+  function resolved(theme){
+    if(theme==='system'){
+      return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    return theme==='dark'?'dark':'light';
+  }
+
+  function apply(theme){
+    var html=document.documentElement;
+    var mode=resolved(theme);
+    html.classList.remove('light','dark');
+    html.classList.add(mode);
+    html.style.colorScheme=mode;
+    try{ localStorage.setItem(KEY, theme); }catch(e){}
+    document.querySelectorAll('[data-kntq-theme-opt]').forEach(function(btn){
+      var on=btn.getAttribute('data-kntq-theme-opt')===theme;
+      btn.setAttribute('aria-pressed', on?'true':'false');
+      btn.style.opacity=on?'1':'0.55';
+      btn.style.outline=on?'2px solid currentColor':'none';
+    });
+  }
+
+  function current(){
+    try{ return localStorage.getItem(KEY)||'system'; }catch(e){ return 'system'; }
+  }
+
+  function close(){
+    if(panel){ panel.remove(); panel=null; }
+    document.removeEventListener('click', onDocClick, true);
+    document.removeEventListener('keydown', onKey);
+  }
+
+  function onDocClick(e){
+    if(!panel) return;
+    if(panel.contains(e.target)) return;
+    if(e.target.closest && e.target.closest('[aria-label="Change settings"],button:has(.lucide-settings)')) return;
+    close();
+  }
+
+  function onKey(e){ if(e.key==='Escape') close(); }
+
+  function openNear(btn){
+    close();
+    panel=document.createElement('div');
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-label','Settings');
+    panel.style.cssText='position:fixed;z-index:99999;min-width:220px;padding:12px;border-radius:12px;border:1px solid rgba(127,127,127,.35);background:var(--background,Canvas);color:var(--foreground,CanvasText);box-shadow:0 12px 40px rgba(0,0,0,.25);font:14px/1.4 system-ui,sans-serif';
+    panel.innerHTML=
+      '<div style="font-weight:600;margin-bottom:10px">Theme</div>'+
+      '<div style="display:flex;gap:8px">'+
+        '<button type="button" data-kntq-theme-opt="light" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;cursor:pointer">Light</button>'+
+        '<button type="button" data-kntq-theme-opt="dark" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;cursor:pointer">Dark</button>'+
+        '<button type="button" data-kntq-theme-opt="system" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;cursor:pointer">System</button>'+
+      '</div>';
+
+    document.body.appendChild(panel);
+    var r=btn.getBoundingClientRect();
+    var top=r.bottom+8;
+    var left=Math.min(Math.max(8, r.right-220), window.innerWidth-228);
+    if(top+120>window.innerHeight) top=Math.max(8, r.top-128);
+    panel.style.top=top+'px';
+    panel.style.left=left+'px';
+
+    panel.querySelectorAll('[data-kntq-theme-opt]').forEach(function(b){
+      b.addEventListener('click', function(){
+        apply(b.getAttribute('data-kntq-theme-opt'));
+        close();
+      });
+    });
+    apply(current());
+    setTimeout(function(){
+      document.addEventListener('click', onDocClick, true);
+      document.addEventListener('keydown', onKey);
+    }, 0);
+  }
+
+  function findSettingsButton(from){
+    if(!from) return null;
+    if(from.matches && from.matches('[aria-label="Change settings"]')) return from;
+    var btn=from.closest && from.closest('button');
+    if(btn && (btn.getAttribute('aria-label')==='Change settings' || btn.querySelector('.lucide-settings'))) return btn;
+    return null;
+  }
+
+  document.addEventListener('click', function(e){
+    var btn=findSettingsButton(e.target);
+    if(!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(panel){ close(); return; }
+    openNear(btn);
+  }, true);
+
+  // Keep system theme in sync
+  try{
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      if(current()==='system') apply('system');
+    });
+  }catch(e){}
+})();
 </script></body></html>
